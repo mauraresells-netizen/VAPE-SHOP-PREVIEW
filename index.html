@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Clydeside Vapour Co. — Glasgow's Premium Vapour Boutique</title>
-<meta name="description" content="Clydeside Vapour Co. — a premium vapour boutique in Glasgow's Merchant City. Hand-mixed e-liquids, refillable pod kits, expert advice and a proper sit-down lounge." />
+<title>Vape Shop — Glasgow's Premium Vapour Boutique</title>
+<meta name="description" content="Vape Shop — a premium vapour boutique in Glasgow's Merchant City. Hand-mixed e-liquids, refillable pod kits, expert advice and a proper sit-down lounge." />
 
 <!-- ============================================================= -->
 <!-- GOOGLE FONTS — Display: Bricolage Grotesque · Body: Manrope    -->
@@ -20,21 +20,21 @@
 /* ================================================================= */
 :root{
   /* ---- COLOUR ---- */
-  --ink:           #0c0e0f;   /* near-black base — dark sections & body text */
-  --ink-2:         #14181a;   /* slightly raised dark surface */
-  --charcoal:      #1b2124;   /* card surface on dark */
-  --smoke-700:     #3a4348;   /* hairline borders on dark */
-  --smoke-500:     #6c777c;   /* muted text */
-  --smoke-300:     #aab2b6;   /* secondary text on dark */
-  --paper:         #f4f1ea;   /* warm off-white — light sections */
-  --paper-2:       #eae4d8;   /* dim paper / card on light */
-  --paper-line:    #ddd5c6;   /* hairline on light */
-  --vapour:        #34c3b0;   /* teal vapour accent (primary) */
-  --vapour-deep:   #1f8f80;   /* deeper teal for text on light */
-  --vapour-soft:   rgba(52,195,176,.14);
-  --brass:         #c79a4f;   /* warm brass premium accent */
-  --brass-deep:    #a87f37;
-  --brass-soft:    rgba(199,154,79,.16);
+  --ink:           #141011;   /* warm near-black — dark sections & body text */
+  --ink-2:         #1c1617;   /* slightly raised dark surface */
+  --charcoal:      #261d1f;   /* card surface on dark */
+  --smoke-700:     #463a3c;   /* hairline borders on dark */
+  --smoke-500:     #8a7a7b;   /* muted text */
+  --smoke-300:     #c4b6b5;   /* secondary text on dark */
+  --paper:         #f7f1ea;   /* warm cream — light sections */
+  --paper-2:       #efe6da;   /* dim paper / card on light */
+  --paper-line:    #e3d7c6;   /* hairline on light */
+  --vapour:        #ff6a45;   /* coral ember accent (primary) */
+  --vapour-deep:   #c2401c;   /* deep ember for text on light */
+  --vapour-soft:   rgba(255,106,69,.14);
+  --brass:         #e7b45a;   /* warm amber-gold premium accent */
+  --brass-deep:    #ad7a28;
+  --brass-soft:    rgba(231,180,90,.16);
 
   /* ---- TYPOGRAPHY ---- */
   --font-display: 'Bricolage Grotesque', Georgia, serif;
@@ -127,13 +127,13 @@ body.is-locked{ overflow:hidden; height:100vh; }
   /* ---- SWAP POINT: drop your splash photo here ----------------- */
   /* Replace the gradient below with:  url('splash.jpg')            */
   background-image:
-    radial-gradient(120% 90% at 50% 0%, rgba(52,195,176,.12), transparent 55%),
-    radial-gradient(90% 80% at 80% 100%, rgba(199,154,79,.10), transparent 60%),
-    linear-gradient(160deg, #0a0c0d 0%, #11171a 45%, #0a0c0d 100%);
+    radial-gradient(120% 90% at 50% 0%, rgba(255,106,69,.14), transparent 55%),
+    radial-gradient(90% 80% at 80% 100%, rgba(231,180,90,.12), transparent 60%),
+    linear-gradient(160deg, #100a0b 0%, #221517 45%, #100a0b 100%);
   /* --------------------------------------------------------------- */
   background-size:cover; background-position:center;
-  transition:clip-path 1.1s var(--ease-soft), opacity .8s ease;
-  clip-path:inset(0 0 0 0);
+  transform-origin:center;
+  transition:opacity .9s ease, transform 1.15s var(--ease-soft), filter 1.1s ease;
 }
 /* dark vignette over the image for legibility */
 #splash::after{
@@ -146,8 +146,8 @@ body.is-locked{ overflow:hidden; height:100vh; }
   position:absolute; border-radius:50%; filter:blur(60px); opacity:.5;
   animation:drift 22s ease-in-out infinite alternate;
 }
-.splash-wisp.a{ width:420px; height:420px; top:-80px; left:-60px; background:rgba(52,195,176,.30); }
-.splash-wisp.b{ width:360px; height:360px; bottom:-90px; right:-40px; background:rgba(199,154,79,.22); animation-delay:-7s; }
+.splash-wisp.a{ width:420px; height:420px; top:-80px; left:-60px; background:rgba(255,106,69,.30); }
+.splash-wisp.b{ width:360px; height:360px; bottom:-90px; right:-40px; background:rgba(231,180,90,.22); animation-delay:-7s; }
 
 .splash-inner{
   position:relative; z-index:2; text-align:center; padding:var(--sp-3);
@@ -193,11 +193,19 @@ body.is-locked{ overflow:hidden; height:100vh; }
 .splash-cta .arw{ transition:transform var(--t-hover); }
 .splash-cta:hover .arw{ transform:translateX(5px); }
 @keyframes breathe{
-  0%,100%{ box-shadow:0 0 0 0 rgba(52,195,176,0); }
-  50%{ box-shadow:0 0 34px 2px rgba(52,195,176,.35); }
+  0%,100%{ box-shadow:0 0 0 0 rgba(255,106,69,0); }
+  50%{ box-shadow:0 0 34px 2px rgba(255,106,69,.35); }
 }
-/* exit state — iris/curtain reveal */
-#splash.is-exiting{ clip-path:inset(0 0 100% 0); opacity:.4; }
+/* leaving state — content lifts & fades first for a layered exit */
+#splash.is-leaving .splash-inner{
+  opacity:0; transform:translateY(-26px) scale(.98);
+  transition:opacity .45s ease, transform .6s var(--ease-soft);
+}
+#splash.is-leaving .splash-wisp{ opacity:.9; transform:scale(1.3); transition:opacity .9s ease, transform 1.1s var(--ease-soft); }
+/* exit state — smooth cinematic zoom-through + blur + fade reveals the site */
+#splash.is-exiting{ opacity:0; transform:scale(1.14); filter:blur(12px); pointer-events:none; }
+/* gentle press feedback on the CTA */
+.splash-cta:active{ transform:translateY(-1px) scale(.96); }
 
 /* ================================================================= */
 /* 2 · NAVIGATION                                                     */
@@ -288,15 +296,64 @@ body.is-locked{ overflow:hidden; height:100vh; }
 .hero::before{
   content:""; position:absolute; inset:0;
   background:
-    radial-gradient(80% 60% at 18% 18%, rgba(52,195,176,.10), transparent 60%),
-    radial-gradient(70% 60% at 90% 90%, rgba(199,154,79,.08), transparent 60%);
+    radial-gradient(80% 60% at 18% 18%, rgba(255,106,69,.10), transparent 60%),
+    radial-gradient(70% 60% at 90% 90%, rgba(231,180,90,.08), transparent 60%);
   pointer-events:none;
 }
 /* drifting decorative vapour shapes */
 .hero-shape{ position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; animation:drift 20s ease-in-out infinite alternate; }
-.hero-shape.s1{ width:460px; height:460px; top:-120px; right:-80px; background:rgba(52,195,176,.18); }
-.hero-shape.s2{ width:360px; height:360px; bottom:-120px; left:-60px; background:rgba(199,154,79,.14); animation-delay:-6s; }
-.hero-shape.s3{ width:240px; height:240px; top:40%; left:50%; background:rgba(52,195,176,.10); animation-delay:-12s; }
+.hero-shape.s1{ width:460px; height:460px; top:-120px; right:-80px; background:rgba(255,106,69,.18); }
+.hero-shape.s2{ width:360px; height:360px; bottom:-120px; left:-60px; background:rgba(231,180,90,.14); animation-delay:-6s; }
+.hero-shape.s3{ width:240px; height:240px; top:40%; left:50%; background:rgba(255,106,69,.10); animation-delay:-12s; }
+
+/* slow rotating aurora glow behind the hero content */
+.hero-aurora{
+  position:absolute; inset:-40%; z-index:0; pointer-events:none;
+  background:conic-gradient(from 0deg,
+    transparent 0deg, rgba(255,106,69,.16) 70deg,
+    transparent 140deg, rgba(231,180,90,.13) 220deg,
+    transparent 300deg, rgba(255,106,69,.16) 360deg);
+  filter:blur(90px); opacity:.85;
+  animation:spin 46s linear infinite;
+  will-change:transform;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* rising vapour particles */
+.vapour-field{ position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+.vapour-field span{
+  position:absolute; bottom:-40px; width:10px; height:10px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,106,69,.55), rgba(255,106,69,0) 70%);
+  filter:blur(1px);
+  animation:rise var(--dur,16s) ease-in infinite;
+  animation-delay:var(--del,0s);
+  opacity:0;
+}
+@keyframes rise{
+  0%{ transform:translateY(0) translateX(0) scale(.6); opacity:0; }
+  12%{ opacity:.9; }
+  70%{ opacity:.5; }
+  100%{ transform:translateY(-92vh) translateX(var(--drift,30px)) scale(1.7); opacity:0; }
+}
+
+/* ----- FLAVOUR TICKER (scrolling marquee band) ----- */
+.ticker{
+  background:var(--ink-2); border-top:1px solid var(--smoke-700); border-bottom:1px solid var(--smoke-700);
+  overflow:hidden; padding:1.1rem 0; position:relative;
+}
+.ticker::before,.ticker::after{
+  content:""; position:absolute; top:0; bottom:0; width:120px; z-index:2; pointer-events:none;
+}
+.ticker::before{ left:0; background:linear-gradient(90deg, var(--ink-2), transparent); }
+.ticker::after{ right:0; background:linear-gradient(270deg, var(--ink-2), transparent); }
+.ticker-track{ display:flex; width:max-content; animation:marquee 32s linear infinite; }
+.ticker:hover .ticker-track{ animation-play-state:paused; }
+.ticker-track span{
+  font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:var(--paper);
+  letter-spacing:.02em; padding:0 1.6rem; display:inline-flex; align-items:center; white-space:nowrap;
+}
+.ticker-track span::after{ content:"•"; color:var(--vapour); margin-left:3.2rem; }
+@keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
 .hero-inner{ position:relative; z-index:2; max-width:880px; }
 .hero h1{
@@ -347,7 +404,7 @@ body.is-locked{ overflow:hidden; height:100vh; }
 }
 .product-card:hover{
   transform:translateY(-6px);
-  box-shadow:0 22px 50px -20px rgba(31,143,128,.45);
+  box-shadow:0 22px 50px -20px rgba(194,64,28,.45);
   border-top-color:var(--brass);
 }
 .product-card .pc-icon{
@@ -377,9 +434,9 @@ body.is-locked{ overflow:hidden; height:100vh; }
   border:1px solid var(--smoke-700);
   /* ---- SWAP POINT: about / interior photo --------------------- */
   background-image:
-    linear-gradient(150deg, rgba(52,195,176,.22), rgba(12,14,15,.65)),
-    radial-gradient(120% 80% at 20% 10%, rgba(199,154,79,.25), transparent 55%),
-    linear-gradient(#1d2528, #11171a);
+    linear-gradient(150deg, rgba(255,106,69,.22), rgba(20,16,17,.65)),
+    radial-gradient(120% 80% at 20% 10%, rgba(231,180,90,.25), transparent 55%),
+    linear-gradient(#2a2022, #17110f);
   /* ------------------------------------------------------------- */
   background-size:cover; background-position:center;
 }
@@ -413,8 +470,8 @@ body.is-locked{ overflow:hidden; height:100vh; }
   position:absolute; inset:-12% 0; z-index:0; will-change:transform;
   /* ---- SWAP POINT: spotlight / signature flavour photo -------- */
   background-image:
-    radial-gradient(80% 80% at 50% 30%, rgba(52,195,176,.30), transparent 60%),
-    linear-gradient(160deg, #0a0c0d, #102b2a 60%, #0a0c0d);
+    radial-gradient(80% 80% at 50% 30%, rgba(255,106,69,.32), transparent 60%),
+    linear-gradient(160deg, #100a0b, #2e1410 60%, #100a0b);
   /* ------------------------------------------------------------- */
   background-size:cover; background-position:center;
 }
@@ -447,14 +504,14 @@ body.is-locked{ overflow:hidden; height:100vh; }
 .tile.t6{ grid-column:span 1; grid-row:span 1; }
 .tile.t7{ grid-column:span 1; grid-row:span 1; }
 /* gradient placeholders — SWAP POINTS: drop gallery photos via background-image */
-.tile.t1{ background-image:linear-gradient(150deg,#13302e,#0c1413); }
-.tile.t2{ background-image:linear-gradient(150deg,#2a2418,#14110a); }
-.tile.t3{ background-image:linear-gradient(150deg,#11272c,#0a1316); }
-.tile.t4{ background-image:linear-gradient(150deg,#1c2b2a,#0f1817); }
-.tile.t5{ background-image:linear-gradient(150deg,#26201a,#100d09); }
-.tile.t6{ background-image:linear-gradient(150deg,#10302c,#0a1614); }
-.tile.t7{ background-image:linear-gradient(150deg,#1a2528,#0d1416); }
-.tile::before{ content:""; position:absolute; inset:0; background:linear-gradient(rgba(52,195,176,0),rgba(52,195,176,.28)); opacity:0; transition:opacity var(--t-colour); }
+.tile.t1{ background-image:linear-gradient(150deg,#3a1c14,#150c0b); }
+.tile.t2{ background-image:linear-gradient(150deg,#2f2614,#15110a); }
+.tile.t3{ background-image:linear-gradient(150deg,#331812,#140b0a); }
+.tile.t4{ background-image:linear-gradient(150deg,#2a201a,#160f0e); }
+.tile.t5{ background-image:linear-gradient(150deg,#2c2114,#120d09); }
+.tile.t6{ background-image:linear-gradient(150deg,#371b13,#150c0b); }
+.tile.t7{ background-image:linear-gradient(150deg,#28201d,#150f0e); }
+.tile::before{ content:""; position:absolute; inset:0; background:linear-gradient(rgba(255,106,69,0),rgba(255,106,69,.30)); opacity:0; transition:opacity var(--t-colour); }
 .tile-label{
   position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center;
   gap:.5rem; color:var(--paper); font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600;
@@ -559,11 +616,11 @@ form{ display:grid; gap:var(--sp-3); }
   position:relative; aspect-ratio:16/11; border-radius:16px; overflow:hidden;
   border:1px solid var(--smoke-700);
   background:
-    linear-gradient(rgba(52,195,176,.05),rgba(52,195,176,.05)),
-    repeating-linear-gradient(0deg, #11171a 0 38px, #0e1416 38px 39px),
-    repeating-linear-gradient(90deg, #11171a 0 38px, #0e1416 38px 39px);
+    linear-gradient(rgba(255,106,69,.05),rgba(255,106,69,.05)),
+    repeating-linear-gradient(0deg, #1a1416 0 38px, #15100f 38px 39px),
+    repeating-linear-gradient(90deg, #1a1416 0 38px, #15100f 38px 39px);
 }
-.map .road{ position:absolute; background:#1c2528; }
+.map .road{ position:absolute; background:#2a2123; }
 .map .road.r1{ top:42%; left:0; right:0; height:10px; }
 .map .road.r2{ top:0; bottom:0; left:38%; width:10px; }
 .map .road.r3{ top:0; bottom:0; right:24%; width:6px; transform:rotate(0); }
@@ -571,7 +628,7 @@ form{ display:grid; gap:var(--sp-3); }
 .pin{ position:absolute; top:42%; left:38%; transform:translate(-50%,-100%); z-index:3; }
 .pin .head{
   width:34px; height:34px; border-radius:50% 50% 50% 0; transform:rotate(-45deg);
-  background:var(--vapour); box-shadow:0 0 0 8px rgba(52,195,176,.18), 0 8px 18px rgba(0,0,0,.4);
+  background:var(--vapour); box-shadow:0 0 0 8px rgba(255,106,69,.18), 0 8px 18px rgba(0,0,0,.4);
   display:flex; align-items:center; justify-content:center;
 }
 .pin .head::after{ content:""; width:12px; height:12px; background:var(--ink); border-radius:50%; }
@@ -668,12 +725,12 @@ form{ display:grid; gap:var(--sp-3); }
 <!-- ============================================================= -->
 <!-- 1 · SPLASH / ENTRY                                             -->
 <!-- ============================================================= -->
-<div id="splash" role="dialog" aria-label="Welcome to Clydeside Vapour Co.">
+<div id="splash" role="dialog" aria-label="Welcome to Vape Shop">
   <div class="splash-wisp a" aria-hidden="true"></div>
   <div class="splash-wisp b" aria-hidden="true"></div>
   <div class="splash-inner">
     <p class="splash-mark">Est. 2017 · Merchant City, Glasgow</p>
-    <h1 class="splash-name">Clydeside <em>Vapour</em> Co.</h1>
+    <h1 class="splash-name">Vape <em>Shop</em></h1>
     <p class="splash-desc">A premium vapour boutique in the heart of the city — hand-mixed liquids, honest advice, and a proper place to sit a while.</p>
     <button class="splash-cta" id="enterBtn">
       Step Inside <span class="arw" aria-hidden="true">→</span>
@@ -688,7 +745,7 @@ form{ display:grid; gap:var(--sp-3); }
 
   <!-- ---------- 2 · NAVIGATION ---------- -->
   <nav class="nav" id="nav" aria-label="Primary">
-    <a href="#top" class="nav-logo"><span class="dot" aria-hidden="true"></span>Clydeside Vapour</a>
+    <a href="#top" class="nav-logo"><span class="dot" aria-hidden="true"></span>Vape Shop</a>
     <div class="nav-links">
       <a href="#range">The Range</a>
       <a href="#about">Our Story</a>
@@ -713,9 +770,11 @@ form{ display:grid; gap:var(--sp-3); }
 
   <!-- ---------- 3 · HERO ---------- -->
   <header class="hero" id="top">
+    <div class="hero-aurora" aria-hidden="true"></div>
     <div class="hero-shape s1" aria-hidden="true"></div>
     <div class="hero-shape s2" aria-hidden="true"></div>
     <div class="hero-shape s3" aria-hidden="true"></div>
+    <div class="vapour-field" id="vapourField" aria-hidden="true"></div>
     <div class="container hero-inner">
       <span class="eyebrow solo">Glasgow's Vapour Boutique</span>
       <h1>
@@ -735,6 +794,11 @@ form{ display:grid; gap:var(--sp-3); }
     </div>
     <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><span class="line"></span></div>
   </header>
+
+  <!-- ---------- FLAVOUR TICKER ---------- -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
 
   <!-- ---------- 4 · THE RANGE ---------- -->
   <section class="range" id="range">
@@ -805,7 +869,7 @@ form{ display:grid; gap:var(--sp-3); }
       <div class="about-text">
         <span class="eyebrow reveal" style="color:var(--vapour)">— Our Story —</span>
         <h2 class="reveal d1">Built in Glasgow,<br/><em>by vapers</em>, for vapers.</h2>
-        <p class="reveal d2">Clydeside Vapour Co. started in 2017 as a single counter on Albion Street, run by two ex-smokers who were sick of being sold the wrong kit by folk who'd never used one. The idea was simple: honest advice, proper testing, and liquids we'd actually vape ourselves.</p>
+        <p class="reveal d2">Our wee shop started in 2017 as a single counter on Albion Street, run by two ex-smokers who were sick of being sold the wrong kit by folk who'd never used one. The idea was simple: honest advice, proper testing, and liquids we'd actually vape ourselves.</p>
         <p class="reveal d2">Today we mix every house flavour in the back of the shop, stock the gear we trust, and take the time to set your kit up before you leave. No pressure, no patter — just the right setup for you.</p>
         <div class="stats reveal d3">
           <div class="stat"><div class="num" data-count="2017" data-plain="true">2017</div><div class="lbl">Established</div></div>
@@ -988,7 +1052,7 @@ form{ display:grid; gap:var(--sp-3); }
   <!-- ---------- 11 · FOOTER ---------- -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-mark">Clydeside Vapour<span class="dot">.</span></div>
+      <div class="footer-mark">Vape Shop<span class="dot">.</span></div>
       <p class="footer-tag">Glasgow's premium vapour boutique.</p>
       <div class="socials">
         <a href="#" aria-label="Instagram">Instagram</a>
@@ -1023,7 +1087,7 @@ form{ display:grid; gap:var(--sp-3); }
           </ul>
         </div>
       </div>
-      <p class="copyright">© 2026 Clydeside Vapour Co. · Over-18s only · Glasgow</p>
+      <p class="copyright">© 2026 Vape Shop · Over-18s only · Glasgow</p>
     </div>
   </footer>
 
@@ -1046,20 +1110,31 @@ form{ display:grid; gap:var(--sp-3); }
   const site     = document.getElementById('site');
   const hero     = document.querySelector('.hero');
 
+  let leaving = false;
   function enterSite(){
-    splash.classList.add('is-exiting');     // cinematic curtain wipe up
-    // make the main site live as the splash clears
-    site.classList.add('is-live');
-    // light the hero entrance sequence (plain timeout — robust even if rAF is throttled)
-    setTimeout(()=> hero.classList.add('lit'), 140);
+    if(leaving) return;            // guard against double-trigger
+    leaving = true;
 
+    // make the main site live behind the splash
+    site.classList.add('is-live');
+    // 1 · content lifts & fades out first (layered exit)
+    splash.classList.add('is-leaving');
+    // 2 · the splash zooms through, blurs and fades — smooth reveal of the page
+    setTimeout(()=> splash.classList.add('is-exiting'), 320);
+    // light the coordinated hero entrance as the splash clears
+    setTimeout(()=> hero.classList.add('lit'), 360);
+
+    let done = false;
     const finish = ()=>{
+      if(done) return; done = true;
       if(splash && splash.parentNode){ splash.parentNode.removeChild(splash); } // remove from DOM entirely
       document.body.classList.remove('is-locked');                              // restore scroll
     };
-    // remove after the transition completes (fallback timeout for safety)
-    splash.addEventListener('transitionend', finish, { once:true });
-    setTimeout(finish, 1300);
+    // remove once the zoom/fade transition on the splash itself ends (+ safety fallback)
+    splash.addEventListener('transitionend', e=>{
+      if(e.target === splash && (e.propertyName === 'transform' || e.propertyName === 'opacity')) finish();
+    });
+    setTimeout(finish, 1700);
   }
   enterBtn.addEventListener('click', enterSite);
   // allow Enter / Space on the CTA via keyboard
@@ -1247,7 +1322,37 @@ form{ display:grid; gap:var(--sp-3); }
   });
 
   /* ---------------------------------------------------------------- */
-  /* 10 · INIT                                                        */
+  /* 10 · RISING VAPOUR PARTICLES (hero ambience)                     */
+  /* ---------------------------------------------------------------- */
+  const field = document.getElementById('vapourField');
+  if(field && !reduceMotion){
+    const COUNT = 16;
+    for(let i=0; i<COUNT; i++){
+      const p = document.createElement('span');
+      const size = 6 + Math.floor(Math.random()*14);          // 6–20px
+      p.style.left   = Math.random()*100 + '%';
+      p.style.width  = p.style.height = size + 'px';
+      p.style.setProperty('--dur',  (12 + Math.random()*12).toFixed(1) + 's');
+      p.style.setProperty('--del',  (-Math.random()*16).toFixed(1) + 's');
+      p.style.setProperty('--drift',(Math.random()*120 - 60).toFixed(0) + 'px');
+      field.appendChild(p);
+    }
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* 11 · FLAVOUR TICKER — build a seamless looping strip             */
+  /* ---------------------------------------------------------------- */
+  const tickerTrack = document.getElementById('tickerTrack');
+  if(tickerTrack){
+    const flavours = ['Clyde Cooler','Tobacco Reserve','Mango Tango','Glasgow Mint',
+                      'Blue Slush','Strawberry Laces','Vanilla Custard','Pink Lemonade',
+                      'Watermelon Chill','Hazelnut Latte','Rhubarb & Custard','Cola Bottles'];
+    const build = ()=> flavours.map(f=> '<span>'+f+'</span>').join('');
+    tickerTrack.innerHTML = build() + build();   // duplicate set → seamless -50% loop
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* 12 · INIT                                                        */
   /* ---------------------------------------------------------------- */
   onScrollNav();
 })();
